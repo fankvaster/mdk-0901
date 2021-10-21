@@ -3,12 +3,17 @@ require_once 'php/array.php';
 require_once 'php/function.php';
 
 
+
 $page = $_GET['arguments'] ?? $_GET['page'];
+
+// Выполняем проверку URL на корректность 
 
 if ($page) {
     $keys = array_keys($_GET);
     
     validateUrl($keys, $page, $arr);
+} else {
+    toMain();
 }
 
 ?>
@@ -23,19 +28,24 @@ if ($page) {
 <body>
     <div>
             <h3>
-                Электронный журнал <a style="text-decoration: none; color: black;" href="../index.html">РТК</a>
+                BroodBuy
             </h3>
-            <?= sr_main($arr, true); ?>
+            <!-- Вызываем функцию для вывода меню сайта -->
+            <?= main($arr, true); ?>
             
             <div style="display: flex;">
                 <? 
+                    // Если есть параметр, выводим пункты вертикального меню
+
                     if ($page && $arr[$page]['sub']) {
-                        echo sr_main($arr[$page]['sub'], false, $page);
+                        echo main($arr[$page]['sub'], false, $page);
                     }
                 ?>
             
                 <?
                 
+                // В зависимости от переданного параметра, выводим горизонтальное / вертикальное меню
+
                 if ($_GET['arguments']) {
                     if (is_file("html/{$arr[$page]['sub'][$_GET['page']]['html']}")) {
                         include_once "html/{$arr[$page]['sub'][$_GET['page']]['html']}";

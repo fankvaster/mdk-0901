@@ -1,6 +1,8 @@
 <?php
 
-function sr_main($arr_in, $g = false, $arguments = null)
+// Функция вывода меню на страницу
+
+function main($arr_in, $g = false, $arguments = null)
 {
     $g = ($g) ? 'display: inline-block;' : ''; 
     $arguments = ($arguments) ? '&arguments=' . $arguments : '';
@@ -12,29 +14,40 @@ function sr_main($arr_in, $g = false, $arguments = null)
     return $s;
 }
 
+// Функция переадресации на главную страницу
+
 function toMain()
 {
     header("Location:{$_SERVER['SCRIPT_NAME']}?page=main");
     exit;
 }
 
+// Функция валидации URL
+
 function validateUrl($keys, $page, $arr)
 {
+    // Количество передаваемых параметров не может быть больше 2-ух (только для 'page' и 'arguments')
+
     if (count($keys) >= 3) {
         toMain();
     }
 
-    if (!array_key_exists($page, $arr)) {
+    // Переданный параметр должен быть в массиве с пунктами меню
+
+    if (!array_key_exists($_GET['page'], $arr) || ($_GET['arguments'])
+        ? (array_key_exists($page, $arr))
+        ? !array_key_exists($_GET['page'], $arr[$page]['sub']) : true : '' || $_GET['page'] == $ex
+    ) {
         toMain();
     }
+
+    // Переданные ключи параметров могут быть только 'page' или 'paramets'
 
     foreach ($keys as $val) {
         $key = $val;
     }
 
-    if (count($keys) == 1 && $key !== 'page') {
+    if ($key !== 'page' && $key !== 'arguments') {
         toMain();
-    } elseif (count($keys) >= 2 && $key !== 'arguments') {
-        toMain();
-    }
+    } 
 }
