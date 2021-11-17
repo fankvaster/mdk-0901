@@ -1,0 +1,32 @@
+<?php
+if ($_SESSION['err']) {
+    echo showErrorMessage($_SESSION['err']);
+    unset($_SESSION['err']);
+}
+
+if (!$_SESSION['user'] && !$_COOKIE['user']) { 
+?>
+<div>
+    <form action="<? $_SERVER['PHP_SELF']; ?>?page=main" method="post">
+        <label>Логин
+        <input type ="text" name="login" required><br>
+        </label>
+
+        <label>Пароль
+        <input type ="password" name="psw" min="8" required><br>
+        </label>
+
+        <input type="submit" name="submit" value="Войти">
+    </form>
+</div>
+<?php
+} else { ?>
+
+<div>
+    <form action="<? $_SERVER['PHP_SELF']; ?>?page=main" method="post">
+        <input type="submit" name="exit" value="Выход">
+    </form>
+</div>
+<?php
+}
+?>

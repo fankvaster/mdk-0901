@@ -1,0 +1,37 @@
+<div>
+    <form action="<? $_SERVER['PHP_SELF']; ?>?page=main" method="post">
+        <label>Логин
+        <input type ="text" name="login" required><br>
+        </label>
+
+        <label>Пароль
+        <input type ="password" name="psw" min="8" required><br>
+        </label>
+
+        <label>Подтвердите пароль
+        <input type ="password" name="psw2" min="8" required><br>
+        </label>
+
+        <label>ФИО
+        <input type ="text" name="fio" required><br>
+        </label>
+
+        <label>Дата рождения
+        <input type ="date" name="date_born" required><br>
+        </label>
+
+        <label>e-mail
+        <input type ="email" name="email" required><br>
+        </label>
+
+        <input type="submit" name="submit" value="Зарегистрироваться">
+    </form>
+</div>
+
+<?php
+if ($_SESSION['err']) {
+    echo showErrorMessage($_SESSION['err']);
+    unset($_SESSION['err']);
+}
+
+?>
